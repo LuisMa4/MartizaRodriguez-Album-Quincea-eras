@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lora:ital,wght@0,400;0,500&display=swap">
+<link rel="stylesheet" href="_ds/classical-191bb9a6-4a54-4149-b8f5-a649e226edd8/styles.css">
+<script src="_ds/classical-191bb9a6-4a54-4149-b8f5-a649e226edd8/_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #f4e7d6; }
+  a { color: oklch(0.44 0.14 350); text-decoration: none; }
+  a:hover { color: oklch(0.56 0.15 350); }
+  ::selection { background: oklch(0.72 0.13 350 / 0.28); }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes pageIn { from { opacity: 0; transform: translateX(26px); } to { opacity: 1; transform: none; } }
+  @keyframes hintPulse { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+</style>
+</helmet>
+
+<div style="position: relative; height: 100dvh; width: 100%; overflow: hidden; background: oklch(0.966 0.006 350); font-family: var(--font-body); color: var(--color-text); perspective: 2400px; perspective-origin: 50% 45%;">
+
+  <div style="position: absolute; inset: 0; display: flex; flex-direction: column;">
+
+    <div style="flex: none; display: flex; align-items: center; justify-content: space-between; gap: 18.4px; padding: 14px clamp(16px, 3vw, 40px) 12px; flex-wrap: wrap; row-gap: 10px; border-bottom: 1px solid oklch(0.72 0.13 350 / 0.3); background: oklch(0.966 0.006 350);">
+      <img src="assets/logo-monograma-rosa.png" alt="Maritza Rodríguez" style="height: clamp(30px, 4.4vw, 40px); width: auto; display: block; flex: none;">
+      <div style="display: flex; align-items: center; gap: clamp(10px, 1.6vw, 22px); flex-wrap: wrap; row-gap: 8px; justify-content: flex-end;">
+        <sc-for list="{{ chapters }}" as="c" hint-placeholder-count="5">
+          <button style="flex: none; padding: 4px 0; background: transparent; border: 0; border-bottom: 1px solid {{ c.rule }}; font-family: var(--font-heading); font-size: clamp(11px, 1.15vw, 13px); letter-spacing: 0.16em; text-transform: uppercase; color: {{ c.color }}; cursor: pointer; white-space: nowrap; transition: color 0.2s ease, border-color 0.2s ease;" style-hover="color: oklch(0.5 0.15 350); border-color: oklch(0.72 0.13 350 / 0.6);" onClick="{{ c.go }}">{{ c.title }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden;" key="{{ pageKey }}">
+      <div style="max-width: 1280px; margin: 0 auto; padding: 27.6px clamp(16px, 3vw, 40px) 120px; animation: pageIn 0.5s cubic-bezier(0.2,0.7,0.2,1) both;">
+
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 13.8px; padding: clamp(28px, 5vh, 56px) 0 clamp(34px, 6vh, 60px);">
+          <div style="display: flex; align-items: center; gap: 13.8px; width: 100%; max-width: 520px;">
+            <div style="flex: 1; height: 1px; background: linear-gradient(to right, transparent, oklch(0.72 0.13 350));"></div>
+            <span style="font-family: var(--font-heading); font-size: 13px; letter-spacing: 0.4em; color: oklch(0.56 0.15 350); font-variant-numeric: tabular-nums; padding-left: 0.4em;">{{ numeral }}</span>
+            <div style="flex: 1; height: 1px; background: linear-gradient(to left, transparent, oklch(0.72 0.13 350));"></div>
+          </div>
+          <h2 style="margin: 0; font-family: var(--font-heading); font-weight: 300; font-size: clamp(24px, 4.4vw, 42px); line-height: 1.08; letter-spacing: 0.22em; text-transform: uppercase; text-align: center; text-wrap: pretty; color: var(--color-text); padding-left: 0.22em;">{{ title }}</h2>
+        </div>
+
+        <div style="columns: {{ gridCols }}; column-gap: 8px;">
+          <sc-for list="{{ photos }}" as="p" hint-placeholder-count="12">
+            <figure style="margin: 0 0 8px; break-inside: avoid; animation: riseIn 0.6s cubic-bezier(0.2,0.7,0.2,1) both;">
+              <div style="padding: 5px; background: #fff; border: 1px solid oklch(0.72 0.13 350 / 0.28); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); cursor: zoom-in; transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.25s ease;" style-hover="box-shadow: var(--shadow-md); border-color: oklch(0.62 0.15 350); transform: translateY(-2px);" onClick="{{ p.open }}">
+                <img src="{{ p.src }}" alt="" loading="lazy" style="display: block; width: 100%; height: auto; border-radius: 3px;">
+              </div>
+            </figure>
+          </sc-for>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 18.4px; margin-top: clamp(48px, 9vh, 88px); padding-top: 22px; border-top: 1px solid oklch(0.72 0.13 350 / 0.3);">
+          <button style="padding: 10px 0; background: transparent; border: 0; font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.1em; color: oklch(0.5 0.15 350); cursor: pointer; text-align: left; opacity: {{ prevOpacity }}; pointer-events: {{ prevPointer }};" style-hover="color: oklch(0.6 0.16 350);" onClick="{{ goPrev }}">‹ {{ prevTitle }}</button>
+          <span style="flex: none; font-family: var(--font-heading); font-size: 12px; letter-spacing: 0.28em; color: var(--color-neutral-600); font-variant-numeric: tabular-nums;">{{ pageLabel }}</span>
+          <button style="padding: 10px 0; background: transparent; border: 0; font-family: var(--font-heading); font-size: 15px; letter-spacing: 0.1em; color: oklch(0.5 0.15 350); cursor: pointer; text-align: right; opacity: {{ nextOpacity }}; pointer-events: {{ nextPointer }};" style-hover="color: oklch(0.6 0.16 350);" onClick="{{ goNext }}">{{ nextTitle }} ›</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; inset: 0; z-index: 40; transform-origin: left center; transform-style: preserve-3d; transition: transform 1.25s cubic-bezier(0.55,0.02,0.2,1), opacity 0.4s ease 0.95s; will-change: transform; background: #f4e7d6; box-shadow: 26px 0 70px rgba(0,0,0,0.4); cursor: pointer; transform: {{ coverTransform }}; opacity: {{ coverOpacity }}; pointer-events: {{ coverPointer }};" onClick="{{ openCover }}">
+    <div style="position: absolute; inset: 0; background-image: repeating-linear-gradient(58deg, rgba(255,255,255,0.5) 0 1px, transparent 1px 3px), repeating-linear-gradient(-32deg, rgba(126,92,74,0.08) 0 1px, transparent 1px 4px), radial-gradient(120% 90% at 50% 38%, #fbf1e3 0%, #f3e6d4 48%, #e4d2bb 100%);"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(58% 44% at 50% 42%, rgba(255,255,255,0.55) 0%, transparent 70%);"></div>
+    <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 22px; background: linear-gradient(to right, rgba(150,110,80,0.26), rgba(255,255,255,0.6) 55%, rgba(150,110,80,0.1));"></div>
+    <div style="position: absolute; inset: clamp(18px, 3.4vw, 40px); border: 1px solid oklch(0.58 0.14 350 / 0.5);"></div>
+    <div style="position: absolute; inset: calc(clamp(18px, 3.4vw, 40px) + 7px); border: 1px solid oklch(0.58 0.14 350 / 0.2);"></div>
+
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18.4px; text-align: center; padding: 0 36.8px;">
+      <div style="width: 54px; height: 1px; background: linear-gradient(to right, transparent, oklch(0.56 0.15 350), transparent);"></div>
+      <img src="assets/logo-firma-rosa.png" alt="Maritza Rodríguez Fotografía" style="width: min(60vw, 620px); height: auto; display: block;">
+      <div style="width: 54px; height: 1px; background: linear-gradient(to right, transparent, oklch(0.56 0.15 350), transparent);"></div>
+      <span style="font-family: var(--font-heading); font-size: clamp(12px, 1.6vw, 16px); letter-spacing: 0.52em; text-transform: uppercase; color: oklch(0.5 0.13 350); padding-left: 0.52em;">Quinceañeros</span>
+    </div>
+
+    <div style="position: absolute; left: 0; right: 0; bottom: clamp(38px, 7vh, 74px); display: flex; flex-direction: column; align-items: center; gap: 11px; animation: hintPulse 3.4s ease-in-out infinite;">
+      <span style="font-family: var(--font-body); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(0.42 0.12 350); padding-left: 0.28em;">Toca para abrir</span>
+      <div style="width: 26px; height: 26px; border-right: 1px solid oklch(0.5 0.14 350); border-top: 1px solid oklch(0.5 0.14 350); transform: rotate(45deg) scale(0.72);"></div>
+    </div>
+  </div>
+
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; z-index: 60; background: oklch(0.18 0.04 350 / 0.95); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18.4px; padding: 27.6px; animation: riseIn 0.28s ease both;" onClick="{{ closeLb }}">
+      {{ lbImage }}
+      <div style="display: flex; align-items: center; gap: 27.6px;" onClick="{{ stop }}">
+        <button style="width: 44px; height: 44px; display: grid; place-items: center; background: transparent; border: 1px solid oklch(0.76 0.13 350 / 0.5); border-radius: var(--radius-md); color: oklch(0.84 0.1 350); font-family: var(--font-heading); font-size: 20px; cursor: pointer; transition: background 0.2s ease;" style-hover="background: oklch(0.62 0.15 350 / 0.22);" onClick="{{ prevLb }}">‹</button>
+        <span style="font-family: var(--font-heading); font-size: 13px; letter-spacing: 0.3em; color: rgba(246,239,230,0.72); font-variant-numeric: tabular-nums;">{{ lbLabel }}</span>
+        <button style="width: 44px; height: 44px; display: grid; place-items: center; background: transparent; border: 1px solid oklch(0.76 0.13 350 / 0.5); border-radius: var(--radius-md); color: oklch(0.84 0.1 350); font-family: var(--font-heading); font-size: 20px; cursor: pointer; transition: background 0.2s ease;" style-hover="background: oklch(0.62 0.15 350 / 0.22);" onClick="{{ nextLb }}">›</button>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tileMin&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:230,&quot;min&quot;:170,&quot;max&quot;:400,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Catálogo&quot;}}">
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'];
+const DIR = 'web/quince/';
+
+const CHAPTERS = [
+  { title: 'Sesión individual', files: ['IMG_0399','IMG_0488','IMG_0625','IMG_1216','IMG_1220','IMG_1342','IMG_1350','IMG_3307','IMG_3376','IMG_3512','IMG_6832','IMG_6947','IMG_6977','IMG_8431','IMG_8651','IMG_8791','IMG_9519','IMG_9553','IMG_9343','IMG_4156','IMG_4203','IMG_4258','IMG_3522','IMG_2748','IMG_2867','IMG_3158','IMG_3295','IMG_2999','IMG_3002','IMG_2830','IMG_7697','IMG_3414','IMG_3106','IMG_8903','IMG_4071','IMG_23572','IMG_0655','IMG_1163','IMG_2512','IMG_3966','IMG_3986','IMG_4781'] },
+  { title: 'Jardín y campo', files: ['IMG_0633','IMG_1127','IMG_1330','IMG_1429','IMG_2687','IMG_2753','IMG_9204','IMG_5719','IMG_5989','IMG_6033','IMG_3068','IMG_3114','IMG_3744','IMG_7726','IMG_7362','IMG_2325','IMG_2484','IMG_3039','IMG_3090','IMG_4314'] },
+  { title: 'Sesión de playa', files: ['IMG_0651','IMG_0706','IMG_0723','IMG_0807','IMG_2263','IMG_2451','IMG_2488','IMG_2881','IMG_2909','IMG_2955','IMG_9097'] },
+  { title: 'Entrada / Vals', files: ['IMG_8051','IMG_8213','IMG_8408','IMG_8427','IMG_1454','IMG_1529','IMG_1540','IMG_3760','IMG_3786','IMG_3829','IMG_5138','IMG_5145','IMG_5279'] },
+  { title: 'Familia', files: ['IMG_1610','IMG_1614','IMG_4469','IMG_7085','IMG_8478','IMG_8505','IMG_7588','IMG_4105'] },
+  { title: 'Fiesta', files: ['IMG_1566','IMG_1637','IMG_1844','IMG_1846','IMG_2064','IMG_2106','IMG_4704','IMG_5898','IMG_5933','IMG_8589','IMG_8591','IMG_8869','_SON1376','_SON1502','IMG_1115','IMG_1322','IMG_8258','IMG_8866','IMG_6737','IMG_6758','IMG_6769','IMG_4264','IMG_4267'] },
+];
+
+class Component extends DCLogic {
+  state = { open: false, ch: 0, lb: null };
+
+  componentDidMount() {
+    this._key = (e) => {
+      if (!this.state.open) return;
+      if (this.state.lb !== null) {
+        if (e.key === 'Escape') this.setState({ lb: null });
+        if (e.key === 'ArrowRight') this.stepLb(1);
+        if (e.key === 'ArrowLeft') this.stepLb(-1);
+        return;
+      }
+      if (e.key === 'ArrowRight') this.goCh(this.state.ch + 1);
+      if (e.key === 'ArrowLeft') this.goCh(this.state.ch - 1);
+    };
+    window.addEventListener('keydown', this._key);
+  }
+  componentWillUnmount() { window.removeEventListener('keydown', this._key); }
+
+  goCh(i) {
+    if (i < 0 || i >= CHAPTERS.length) return;
+    this.setState({ ch: i, lb: null });
+  }
+
+  stepLb(d) {
+    const n = CHAPTERS[this.state.ch].files.length;
+    this.setState((s) => ({ lb: s.lb === null ? null : (s.lb + d + n) % n }));
+  }
+
+  renderVals() {
+    const min = this.props.tileMin ?? 230;
+    const ch = this.state.ch;
+    const chap = CHAPTERS[ch];
+    const lb = this.state.lb;
+    const prev = CHAPTERS[ch - 1];
+    const next = CHAPTERS[ch + 1];
+
+    return {
+      chapters: CHAPTERS.map((c, i) => ({
+        title: c.title,
+        color: i === ch ? 'oklch(0.5 0.15 350)' : 'var(--color-neutral-600)',
+        rule: i === ch ? 'oklch(0.62 0.15 350)' : 'transparent',
+        go: () => this.goCh(i),
+      })),
+      photos: chap.files.map((f, i) => ({
+        src: DIR + f + '.jpg',
+        open: () => this.setState({ lb: i }),
+      })),
+      gridCols: min + 'px',
+      pageKey: 'ch' + ch,
+      numeral: ROMAN[ch],
+      title: chap.title,
+      pageLabel: String(ch + 1) + ' / ' + CHAPTERS.length,
+      prevTitle: prev ? prev.title : '',
+      nextTitle: next ? next.title : '',
+      prevOpacity: prev ? 1 : 0,
+      nextOpacity: next ? 1 : 0,
+      prevPointer: prev ? 'auto' : 'none',
+      nextPointer: next ? 'auto' : 'none',
+      goPrev: () => this.goCh(ch - 1),
+      goNext: () => this.goCh(ch + 1),
+      coverTransform: this.state.open ? 'rotateY(-114deg)' : 'rotateY(0deg)',
+      coverOpacity: this.state.open ? 0 : 1,
+      coverPointer: this.state.open ? 'none' : 'auto',
+      openCover: () => this.setState({ open: true }),
+      lbOpen: lb !== null,
+      lbImage: lb === null ? null : React.createElement('img', {
+        src: DIR + chap.files[lb] + '.jpg', alt: '',
+        style: { maxWidth: 'min(1100px, 92vw)', maxHeight: 'min(64dvh, 760px)', display: 'block', padding: 8, background: '#fff', borderRadius: 'var(--radius-md)', boxShadow: '0 24px 70px rgba(0,0,0,0.6)' },
+      }),
+      lbLabel: lb === null ? '' : String(lb + 1).padStart(2, '0') + ' / ' + String(chap.files.length).padStart(2, '0'),
+      closeLb: () => this.setState({ lb: null }),
+      stop: (e) => e.stopPropagation(),
+      prevLb: () => this.stepLb(-1),
+      nextLb: () => this.stepLb(1),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
